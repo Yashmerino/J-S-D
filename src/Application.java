@@ -161,8 +161,17 @@ public class Application {
 				// Open dialog box to select a file and store the return value in "response"
 				int response = fileChooser.showOpenDialog(null);
 				
-				// Save the input file via File Manager
-				fileManager.setInputFile(new File(fileChooser.getSelectedFile().getAbsolutePath()));
+				try {
+					// Save the output file via File Manager
+					fileManager.setInputFile(new File(fileChooser.getSelectedFile().getAbsolutePath()));
+				}
+				catch(Exception ex) {
+					// If no file was selected then show message about this
+					JOptionPane.showMessageDialog(null, "Please select a file!", "Error", JOptionPane.ERROR_MESSAGE);
+					// Stop the execution of this function
+					return;
+				}
+				
 				// Save the selected file's extension
 				String fileExtension = fileManager.getInputFile().getName().toLowerCase();
 				
@@ -197,8 +206,17 @@ public class Application {
 				// Open dialog box to select a file and store the return value in "response"
 				int response = fileChooser.showSaveDialog(null);
 				
-				// Save the output file via File Manager
-				fileManager.setOutputFile(new File(fileChooser.getSelectedFile().getAbsolutePath()));
+				try {
+					// Save the output file via File Manager
+					fileManager.setOutputFile(new File(fileChooser.getSelectedFile().getAbsolutePath()));
+				}
+				catch(Exception ex) {
+					// If no file was selected then show message about this
+					JOptionPane.showMessageDialog(null, "Please select a file!", "Error", JOptionPane.ERROR_MESSAGE);
+					// Stop the execution of this function
+					return;
+				}
+				
 				// Save the selected file's extension
 				String fileExtension = fileManager.getOutputFile().getName().toLowerCase();
 				
@@ -214,6 +232,18 @@ public class Application {
 					JOptionPane.showMessageDialog(null, fileManager.getOutputFile().getName() + " has been selected successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}	
+		});
+		
+		// When generate button clicked
+		generateButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(fileManager.getOutputFile() == null || fileManager.getInputFile() == null) {
+					JOptionPane.showMessageDialog(null, "Please select required files!", "Error", JOptionPane.ERROR_MESSAGE);
+				} // If file already exists, ask to overwrite it
+				else if(fileManager.getOutputFile().exists()) {
+					JOptionPane.showConfirmDialog(null, "The file already exists. Overwrite it?", "File exists", JOptionPane.YES_NO_OPTION);
+				}
+			}
 		});
 	}
 }
