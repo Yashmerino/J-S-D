@@ -26,6 +26,11 @@ public class Application {
 	FileManager fileManager = new FileManager();
 	
 	/**
+	 * Creates a Generator that generates documentation for JSON Schema
+	 */
+	Generator generator = new Generator();
+	
+	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
@@ -239,10 +244,24 @@ public class Application {
 			public void actionPerformed(ActionEvent e) {
 				if(fileManager.getOutputFile() == null || fileManager.getInputFile() == null) {
 					JOptionPane.showMessageDialog(null, "Please select required files!", "Error", JOptionPane.ERROR_MESSAGE);
+					return;
 				} // If file already exists, ask to overwrite it
 				else if(fileManager.getOutputFile().exists()) {
-					JOptionPane.showConfirmDialog(null, "The file already exists. Overwrite it?", "File exists", JOptionPane.YES_NO_OPTION);
+					int input = JOptionPane.showConfirmDialog(null, "The file already exists. Overwrite it?", "File exists", JOptionPane.YES_NO_OPTION);
+					
+					switch(input) {
+					// If user clicked yes then erase all contents of the file and generate documentation
+					case JOptionPane.YES_OPTION:
+						generator.Generate();
+						return;
+					// If user clicked no then stop execution of this function
+					case JOptionPane.NO_OPTION:
+						return;
+					}
 				}
+				
+				// If everything went good then generate documentation
+				generator.Generate();
 			}
 		});
 	}
