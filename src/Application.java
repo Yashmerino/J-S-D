@@ -100,12 +100,22 @@ public class Application {
 		frame.getContentPane().add(GenerateButton);
 		
 		JButton CancelButton = new JButton("Cancel");
+		
+		// When cancel button clicked
+		CancelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Close the application
+				System.exit(1);
+			}
+		});
 		CancelButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		CancelButton.setBounds(329, 378, 143, 29);
 		frame.getContentPane().add(CancelButton);
 		
 		JButton BrowseOpenButton = new JButton("Browse");
 		BrowseOpenButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		
+		// When browse file to open clicked
 		BrowseOpenButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// To select files
@@ -126,6 +136,8 @@ public class Application {
 					fileManager.setOpenFile(new File(fileChooser.getSelectedFile().getAbsolutePath()));
 					// Set the text field to the open file
 					FieldOpenFile.setText(fileManager.getOpenFile().toString());
+					// Message Dialog that everything went good
+					JOptionPane.showMessageDialog(null, fileManager.getOpenFile().getName() + " has been opened successfully!", "Success!", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});
@@ -136,6 +148,8 @@ public class Application {
 		
 		JButton BrowseSaveButton = new JButton("Browse");
 		BrowseSaveButton.setBounds(457, 218, 143, 29);
+		
+		// When browse file to save clicked
 		BrowseSaveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// To select files
@@ -148,7 +162,7 @@ public class Application {
 				fileChooser.setAcceptAllFileFilterUsed(false);
 				
 				// Open dialog box to select file
-				int response = fileChooser.showOpenDialog(null);
+				int response = fileChooser.showSaveDialog(null);
 				
 				
 				// If selected file is good
@@ -157,6 +171,8 @@ public class Application {
 					fileManager.setSaveFile(new File(fileChooser.getSelectedFile().getAbsolutePath()));
 					// Set the text field to the save file
 					FieldSaveFile.setText(fileManager.getSaveFile().toString());
+					// Message Dialog that everything went good
+					JOptionPane.showMessageDialog(null, fileManager.getSaveFile().getName() + " has been selected successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});
