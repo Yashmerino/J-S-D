@@ -7,12 +7,12 @@ public class FileManager {
 	/**
 	 * File to store JSON Schema
 	 */
-	private File inputFile;
+	static private File inputFile;
 	
 	/**
 	 * File to store generated documentation of JSON Schema
 	 */
-	private File outputFile;
+	static private File outputFile;
 	
 	/**
 	 * Constructor of the class
@@ -42,7 +42,7 @@ public class FileManager {
 	 * @param inputFile This file's new object to store
 	 */
 	public void setInputFile(File inputFile) {
-		this.inputFile = inputFile;
+		FileManager.inputFile = inputFile;
 	}
 	
 	/**
@@ -50,7 +50,7 @@ public class FileManager {
 	 * @param outputFile This file's new object to store
 	 */
 	public void setOutputFile(File outputFile) {
-		this.outputFile = outputFile;
+		FileManager.outputFile = outputFile;
 	}
 	
 }
