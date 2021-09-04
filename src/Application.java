@@ -3,25 +3,32 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JCheckBox;
+import javax.swing.JFileChooser;
 
 public class Application {
 
+	// Components
 	private JFrame frame;
-	private JTextField FieldURLSchema;
-	private JTextField FieldOutputFile;
-
+	private JTextField FieldOpenFile;
+	private JTextField FieldSaveFile;
+	
+	FileManager fileManager = new FileManager();
+	
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -31,6 +38,8 @@ public class Application {
 					e.printStackTrace();
 				}
 			}
+			
+			
 		});
 	}
 
@@ -50,29 +59,15 @@ public class Application {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JButton BrowseSchemaButton = new JButton("Browse");
-		BrowseSchemaButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		BrowseSchemaButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		BrowseSchemaButton.setBounds(457, 140, 143, 29);
-		frame.getContentPane().add(BrowseSchemaButton);
+		FieldOpenFile = new JTextField();
+		FieldOpenFile.setBounds(27, 140, 420, 29);
+		frame.getContentPane().add(FieldOpenFile);
+		FieldOpenFile.setColumns(10);
 		
-		FieldURLSchema = new JTextField();
-		FieldURLSchema.setBounds(27, 140, 420, 29);
-		frame.getContentPane().add(FieldURLSchema);
-		FieldURLSchema.setColumns(10);
-		
-		JButton BrowseOutputButton = new JButton("Browse");
-		BrowseOutputButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		BrowseOutputButton.setBounds(457, 218, 143, 29);
-		frame.getContentPane().add(BrowseOutputButton);
-		
-		FieldOutputFile = new JTextField();
-		FieldOutputFile.setColumns(10);
-		FieldOutputFile.setBounds(27, 218, 420, 29);
-		frame.getContentPane().add(FieldOutputFile);
+		FieldSaveFile = new JTextField();
+		FieldSaveFile.setColumns(10);
+		FieldSaveFile.setBounds(27, 218, 420, 29);
+		frame.getContentPane().add(FieldSaveFile);
 		
 		JLabel lblNewLabel = new JLabel("JSON Schema URL");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -108,5 +103,65 @@ public class Application {
 		CancelButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		CancelButton.setBounds(329, 378, 143, 29);
 		frame.getContentPane().add(CancelButton);
+		
+		JButton BrowseOpenButton = new JButton("Browse");
+		BrowseOpenButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		BrowseOpenButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// To select files
+				JFileChooser fileChooser = new JFileChooser();
+				// Filter for files
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("JSON Files", "json");
+				// Set the filter
+				fileChooser.setFileFilter(filter);
+				// Disable "all files" section in dialog box
+				fileChooser.setAcceptAllFileFilterUsed(false);
+				
+				// Open dialog box to select file
+				int response = fileChooser.showOpenDialog(null);
+				
+				// If selected file is good
+				if(response == JFileChooser.APPROVE_OPTION) {
+					// Save the file
+					fileManager.setOpenFile(new File(fileChooser.getSelectedFile().getAbsolutePath()));
+					// Set the text field to the open file
+					FieldOpenFile.setText(fileManager.getOpenFile().toString());
+				}
+			}
+		});
+		
+		BrowseOpenButton.setBounds(457, 140, 143, 29);
+		frame.getContentPane().add(BrowseOpenButton);
+		
+		
+		JButton BrowseSaveButton = new JButton("Browse");
+		BrowseSaveButton.setBounds(457, 218, 143, 29);
+		BrowseSaveButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// To select files
+				JFileChooser fileChooser = new JFileChooser();
+				// Filter for files
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("TXT Files", "txt");
+				// Set the filter
+				fileChooser.setFileFilter(filter);
+				// Disable "all files" section in dialog box
+				fileChooser.setAcceptAllFileFilterUsed(false);
+				
+				// Open dialog box to select file
+				int response = fileChooser.showOpenDialog(null);
+				
+				
+				// If selected file is good
+				if(response == JFileChooser.APPROVE_OPTION) {
+					// Save the file
+					fileManager.setSaveFile(new File(fileChooser.getSelectedFile().getAbsolutePath()));
+					// Set the text field to the save file
+					FieldSaveFile.setText(fileManager.getSaveFile().toString());
+				}
+			}
+		});
+		
+		BrowseSaveButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		frame.getContentPane().add(BrowseSaveButton);
 	}
 }
