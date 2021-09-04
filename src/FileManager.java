@@ -1,33 +1,56 @@
 import java.io.File;
 
+/**
+ * Class that manages files selected by user
+ */
 public class FileManager {
-	// File that contains all the JSON Schema data
-	private File openFile;
-	// File that will contain documentation
-	private File saveFile;
+	/**
+	 * File to store JSON Schema
+	 */
+	private File inputFile;
 	
+	/**
+	 * File to store generated documentation of JSON Schema
+	 */
+	private File outputFile;
+	
+	/**
+	 * Constructor of the class
+	 */
 	FileManager() {
 		
 	}
 	
-	// Return file that contains JSON Schema
-	public File getOpenFile() {
-		return openFile;
+	/**
+	 * Gets the file that stores JSON Schema
+	 * @return this inputFile(JSON Schema)
+	 */
+	public File getInputFile() {
+		return inputFile;
 	}
 	
-	// Return file that will contain documentation
-	public File getSaveFile() {
-		return saveFile;
+	/**
+	 * Gets the file that stores generated JSON Schema Documentation
+	 * @return this outputFile(Generatated JSON Schema Documentation)
+	 */
+	public File getOutputFile() {
+		return outputFile;
 	}
 	
-	// Set file that contains JSON Schema
-	public void setOpenFile(File openFile) {
-		this.openFile = openFile;
+	/**
+	 * Changes the file that stores JSON Schema
+	 * @param inputFile This file's new object to store
+	 */
+	public void setInputFile(File inputFile) {
+		this.inputFile = inputFile;
 	}
 	
-	// Set file that will contain documentation
-	public void setSaveFile(File saveFile) {
-		this.saveFile = saveFile;
+	/**
+	 * Changes the file that stores generated JSON Schema Documentation
+	 * @param outputFile This file's new object to store
+	 */
+	public void setOutputFile(File outputFile) {
+		this.outputFile = outputFile;
 	}
 	
 }

@@ -17,11 +17,14 @@ import javax.swing.JFileChooser;
 
 public class Application {
 
-	// Components
+	/**
+	 * Creates new frame(content within window)
+	 */
 	private JFrame frame;
-	private JTextField FieldOpenFile;
-	private JTextField FieldSaveFile;
 	
+	/**
+	 * Creates a File Manager that manages with selected files
+	 */
 	FileManager fileManager = new FileManager();
 	
 	/**
@@ -32,7 +35,9 @@ public class Application {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					// Initialize window
 					Application window = new Application();
+					// Set the frame visible
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -54,130 +59,145 @@ public class Application {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		//------------Widgets------------
+		
+		// Initialize the frame and its components
 		frame = new JFrame();
 		frame.setBounds(100, 100, 640, 480);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		FieldOpenFile = new JTextField();
-		FieldOpenFile.setBounds(27, 140, 420, 29);
-		frame.getContentPane().add(FieldOpenFile);
-		FieldOpenFile.setColumns(10);
+		// Declare and initialize text field for input file
+		JTextField fieldInputFile;
+		fieldInputFile = new JTextField();
+		fieldInputFile.setBounds(30, 140, 420, 30);
+		frame.getContentPane().add(fieldInputFile);
+		fieldInputFile.setColumns(10);
 		
-		FieldSaveFile = new JTextField();
-		FieldSaveFile.setColumns(10);
-		FieldSaveFile.setBounds(27, 218, 420, 29);
-		frame.getContentPane().add(FieldSaveFile);
+		// Declare and initialize text field for output file
+		JTextField fieldOutputFile;
+		fieldOutputFile = new JTextField();
+		fieldOutputFile.setColumns(10);
+		fieldOutputFile.setBounds(30, 220, 420, 30);
+		frame.getContentPane().add(fieldOutputFile);
 		
-		JLabel lblNewLabel = new JLabel("JSON Schema URL");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel.setBounds(27, 111, 134, 29);
-		frame.getContentPane().add(lblNewLabel);
+		// Declare and initialize label for input text field
+		JLabel InputFileLabel = new JLabel("JSON Schema URL");
+		InputFileLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		InputFileLabel.setBounds(30, 110, 135, 30);
+		frame.getContentPane().add(InputFileLabel);
 		
-		JLabel lblOutputFile = new JLabel("Output File");
-		lblOutputFile.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblOutputFile.setBounds(27, 189, 134, 29);
-		frame.getContentPane().add(lblOutputFile);
+		// Declare and initialize label for output text field
+		JLabel OutputFileLabel = new JLabel("Output File");
+		OutputFileLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		OutputFileLabel.setBounds(30, 190, 135, 30);
+		frame.getContentPane().add(OutputFileLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("Generate JSON Schema Documentation");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel_1.setBounds(150, 22, 322, 36);
-		frame.getContentPane().add(lblNewLabel_1);
+		// Declare and initialize label for title
+		JLabel titleLabel = new JLabel("Generate JSON Schema Documentation");
+		titleLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+		titleLabel.setBounds(150, 25, 330, 40);
+		frame.getContentPane().add(titleLabel);
 		
-		JCheckBox RequiredCheckBox = new JCheckBox("Only required content");
-		RequiredCheckBox.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		RequiredCheckBox.setBounds(27, 275, 181, 21);
-		frame.getContentPane().add(RequiredCheckBox);
+		// Declare and initialize check box for "only required content"
+		JCheckBox requiredCheckBox = new JCheckBox("Only required content");
+		requiredCheckBox.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		requiredCheckBox.setBounds(30, 275, 180, 20);
+		frame.getContentPane().add(requiredCheckBox);
 		
+		// Declare and initialize check box for "include examples"
 		JCheckBox includeCheckBox = new JCheckBox("Include examples");
-		includeCheckBox.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		includeCheckBox.setBounds(27, 298, 181, 21);
+		includeCheckBox.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		includeCheckBox.setBounds(30, 300, 180, 20);
 		frame.getContentPane().add(includeCheckBox);
 		
-		JButton GenerateButton = new JButton("Generate");
-		GenerateButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		GenerateButton.setBounds(150, 378, 143, 29);
-		frame.getContentPane().add(GenerateButton);
+		// Declare and initialize generate button
+		JButton generateButton = new JButton("Generate");
+		generateButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		generateButton.setBounds(150, 380, 140, 30);
+		frame.getContentPane().add(generateButton);
 		
-		JButton CancelButton = new JButton("Cancel");
+		// Declare and initialize cancel button
+		JButton cancelButton = new JButton("Cancel");
+		cancelButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		cancelButton.setBounds(330, 380, 140, 30);
+		frame.getContentPane().add(cancelButton);
+		
+		// Declare and initialize browse input file button
+		JButton browseInputButton = new JButton("Browse");
+		browseInputButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		browseInputButton.setBounds(460, 140, 140, 30);
+		frame.getContentPane().add(browseInputButton);
+		
+		// Declare and initialize browse output file button
+		JButton browseOutputButton = new JButton("Browse");
+		browseOutputButton.setBounds(460, 220, 140, 30);
+		browseOutputButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		frame.getContentPane().add(browseOutputButton);
+		
+		//----------------------------------------
 		
 		// When cancel button clicked
-		CancelButton.addActionListener(new ActionListener() {
+		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Close the application
 				System.exit(1);
 			}
 		});
-		CancelButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		CancelButton.setBounds(329, 378, 143, 29);
-		frame.getContentPane().add(CancelButton);
 		
-		JButton BrowseOpenButton = new JButton("Browse");
-		BrowseOpenButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		
-		// When browse file to open clicked
-		BrowseOpenButton.addActionListener(new ActionListener() {
+		// When browse input file clicked
+		browseInputButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// To select files
+				// Declare and initialize a JFileChooser to select a file
 				JFileChooser fileChooser = new JFileChooser();
-				// Filter for files
+				// Filter for files to show only JSON files
 				FileNameExtensionFilter filter = new FileNameExtensionFilter("JSON Files", "json");
-				// Set the filter
+				// Set the filter for JFileChooser
 				fileChooser.setFileFilter(filter);
-				// Disable "all files" section in dialog box
+				// Disable "all files" section in dialog box when selecting a file
 				fileChooser.setAcceptAllFileFilterUsed(false);
 				
-				// Open dialog box to select file
+				// Open dialog box to select a file and store the return value in "response"
 				int response = fileChooser.showOpenDialog(null);
 				
-				// If selected file is good
+				// If file has been chosen
 				if(response == JFileChooser.APPROVE_OPTION) {
-					// Save the file
-					fileManager.setOpenFile(new File(fileChooser.getSelectedFile().getAbsolutePath()));
-					// Set the text field to the open file
-					FieldOpenFile.setText(fileManager.getOpenFile().toString());
-					// Message Dialog that everything went good
-					JOptionPane.showMessageDialog(null, fileManager.getOpenFile().getName() + " has been opened successfully!", "Success!", JOptionPane.INFORMATION_MESSAGE);
+					// Save the input file via File Manager
+					fileManager.setInputFile(new File(fileChooser.getSelectedFile().getAbsolutePath()));
+					// Set the text field content to the path of the input file
+					fieldInputFile.setText(fileManager.getInputFile().toString());
+					// Message Dialog to notify the user that everything went good
+					JOptionPane.showMessageDialog(null, fileManager.getInputFile().getName() + " has been opened successfully!", "Success!", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});
 		
-		BrowseOpenButton.setBounds(457, 140, 143, 29);
-		frame.getContentPane().add(BrowseOpenButton);
-		
-		
-		JButton BrowseSaveButton = new JButton("Browse");
-		BrowseSaveButton.setBounds(457, 218, 143, 29);
-		
-		// When browse file to save clicked
-		BrowseSaveButton.addActionListener(new ActionListener() {
+		// When browse output file clicked
+		browseOutputButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// To select files
+				// Declare and initialize a JFileChooser to select a file
 				JFileChooser fileChooser = new JFileChooser();
-				// Filter for files
+				// Filter for files to show only JSON files
 				FileNameExtensionFilter filter = new FileNameExtensionFilter("TXT Files", "txt");
-				// Set the filter
+				// Set the filter for JFileChooser
 				fileChooser.setFileFilter(filter);
-				// Disable "all files" section in dialog box
+				// Disable "all files" section in dialog box when selecting a file
 				fileChooser.setAcceptAllFileFilterUsed(false);
 				
-				// Open dialog box to select file
+				// Open dialog box to select a file and store the return value in "response"
 				int response = fileChooser.showSaveDialog(null);
 				
 				
-				// If selected file is good
+				// If file has been chosen
 				if(response == JFileChooser.APPROVE_OPTION) {
-					// Save the file
-					fileManager.setSaveFile(new File(fileChooser.getSelectedFile().getAbsolutePath()));
-					// Set the text field to the save file
-					FieldSaveFile.setText(fileManager.getSaveFile().toString());
-					// Message Dialog that everything went good
-					JOptionPane.showMessageDialog(null, fileManager.getSaveFile().getName() + " has been selected successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+					// Save the output file via File Manager
+					fileManager.setOutputFile(new File(fileChooser.getSelectedFile().getAbsolutePath()));
+					// Set the text field content to the path of the output file
+					fieldOutputFile.setText(fileManager.getOutputFile().toString());
+					// Message Dialog to notify the user that everything went good
+					JOptionPane.showMessageDialog(null, fileManager.getOutputFile().getName() + " has been selected successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});
-		
-		BrowseSaveButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		frame.getContentPane().add(BrowseSaveButton);
 	}
 }
