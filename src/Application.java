@@ -1,26 +1,24 @@
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JButton;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.awt.event.ActionEvent;
-import java.awt.Font;
-import javax.swing.JTextField;
-import javax.swing.JTextArea;
-import javax.swing.JTextPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
+
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JDialog;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JCheckBox;
-import javax.swing.JFileChooser;
+import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Application {
-
 	/**
 	 * Creates new frame(content within window)
 	 */
-	private JFrame frame;
+	private JDialog dialog;
 	
 	/**
 	 * Creates a File Manager that manages with selected files
@@ -38,7 +36,7 @@ public class Application {
 					// Initialize window
 					Application window = new Application();
 					// Set the frame visible
-					window.frame.setVisible(true);
+					window.dialog.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -62,16 +60,17 @@ public class Application {
 		//------------Widgets------------
 		
 		// Initialize the frame and its components
-		frame = new JFrame();
-		frame.setBounds(100, 100, 640, 480);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		dialog = new JDialog();
+		dialog.setBounds(100, 100, 640, 480);
+		dialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		dialog.setTitle("JSON Schema Documentation Generator");
+		dialog.getContentPane().setLayout(null);
 		
 		// Declare and initialize text field for input file
 		JTextField fieldInputFile;
 		fieldInputFile = new JTextField();
 		fieldInputFile.setBounds(30, 140, 420, 30);
-		frame.getContentPane().add(fieldInputFile);
+		dialog.getContentPane().add(fieldInputFile);
 		fieldInputFile.setColumns(10);
 		
 		// Declare and initialize text field for output file
@@ -79,66 +78,67 @@ public class Application {
 		fieldOutputFile = new JTextField();
 		fieldOutputFile.setColumns(10);
 		fieldOutputFile.setBounds(30, 220, 420, 30);
-		frame.getContentPane().add(fieldOutputFile);
+		dialog.getContentPane().add(fieldOutputFile);
 		
 		// Declare and initialize label for input text field
 		JLabel InputFileLabel = new JLabel("JSON Schema URL");
 		InputFileLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		InputFileLabel.setBounds(30, 110, 135, 30);
-		frame.getContentPane().add(InputFileLabel);
+		dialog.getContentPane().add(InputFileLabel);
 		
 		// Declare and initialize label for output text field
 		JLabel OutputFileLabel = new JLabel("Output File");
 		OutputFileLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		OutputFileLabel.setBounds(30, 190, 135, 30);
-		frame.getContentPane().add(OutputFileLabel);
+		dialog.getContentPane().add(OutputFileLabel);
 		
 		// Declare and initialize label for title
 		JLabel titleLabel = new JLabel("Generate JSON Schema Documentation");
 		titleLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		titleLabel.setBounds(150, 25, 330, 40);
-		frame.getContentPane().add(titleLabel);
+		dialog.getContentPane().add(titleLabel);
 		
 		// Declare and initialize check box for "only required content"
 		JCheckBox requiredCheckBox = new JCheckBox("Only required content");
 		requiredCheckBox.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		requiredCheckBox.setBounds(30, 275, 180, 20);
-		frame.getContentPane().add(requiredCheckBox);
+		dialog.getContentPane().add(requiredCheckBox);
 		
 		// Declare and initialize check box for "include examples"
 		JCheckBox includeCheckBox = new JCheckBox("Include examples");
 		includeCheckBox.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		includeCheckBox.setBounds(30, 300, 180, 20);
-		frame.getContentPane().add(includeCheckBox);
+		dialog.getContentPane().add(includeCheckBox);
 		
 		// Declare and initialize generate button
 		JButton generateButton = new JButton("Generate");
 		generateButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		generateButton.setBounds(150, 380, 140, 30);
-		frame.getContentPane().add(generateButton);
+		dialog.getContentPane().add(generateButton);
 		
 		// Declare and initialize cancel button
 		JButton cancelButton = new JButton("Cancel");
 		cancelButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		cancelButton.setBounds(330, 380, 140, 30);
-		frame.getContentPane().add(cancelButton);
+		dialog.getContentPane().add(cancelButton);
 		
 		// Declare and initialize browse input file button
 		JButton browseInputButton = new JButton("Browse");
 		browseInputButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		browseInputButton.setBounds(460, 140, 140, 30);
-		frame.getContentPane().add(browseInputButton);
+		dialog.getContentPane().add(browseInputButton);
 		
 		// Declare and initialize browse output file button
 		JButton browseOutputButton = new JButton("Browse");
 		browseOutputButton.setBounds(460, 220, 140, 30);
 		browseOutputButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		frame.getContentPane().add(browseOutputButton);
+		dialog.getContentPane().add(browseOutputButton);
 		
 		//----------------------------------------
 		
 		// When cancel button clicked
 		cancelButton.addActionListener(new ActionListener() {
+			@ Override
 			public void actionPerformed(ActionEvent e) {
 				// Close the application
 				System.exit(1);
@@ -147,6 +147,7 @@ public class Application {
 		
 		// When browse input file clicked
 		browseInputButton.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				// Declare and initialize a JFileChooser to select a file
 				JFileChooser fileChooser = new JFileChooser();
@@ -160,8 +161,17 @@ public class Application {
 				// Open dialog box to select a file and store the return value in "response"
 				int response = fileChooser.showOpenDialog(null);
 				
-				// If file has been chosen
-				if(response == JFileChooser.APPROVE_OPTION) {
+				// Save the input file via File Manager
+				fileManager.setInputFile(new File(fileChooser.getSelectedFile().getAbsolutePath()));
+				// Save the selected file's extension
+				String fileExtension = fileManager.getInputFile().getName().toLowerCase();
+				
+				// If file doesn't end with json then show error message and set the file to null
+				if(!fileExtension.endsWith(".json")) {
+					JOptionPane.showMessageDialog(null, fileManager.getInputFile().getName() + " doesn't have the correct extension!", "Error", JOptionPane.ERROR_MESSAGE);
+					fileManager.setInputFile(null);
+				}// If file has been chosen
+				else if(response == JFileChooser.APPROVE_OPTION) {
 					// Save the input file via File Manager
 					fileManager.setInputFile(new File(fileChooser.getSelectedFile().getAbsolutePath()));
 					// Set the text field content to the path of the input file
@@ -187,17 +197,23 @@ public class Application {
 				// Open dialog box to select a file and store the return value in "response"
 				int response = fileChooser.showSaveDialog(null);
 				
+				// Save the output file via File Manager
+				fileManager.setOutputFile(new File(fileChooser.getSelectedFile().getAbsolutePath()));
+				// Save the selected file's extension
+				String fileExtension = fileManager.getOutputFile().getName().toLowerCase();
 				
-				// If file has been chosen
-				if(response == JFileChooser.APPROVE_OPTION) {
-					// Save the output file via File Manager
-					fileManager.setOutputFile(new File(fileChooser.getSelectedFile().getAbsolutePath()));
+				// If file doesn't end with txt/html/json then show error message and set the file to null
+				if(!fileExtension.endsWith(".txt") && !fileExtension.endsWith(".html") && !fileExtension.endsWith(".json")) {
+					JOptionPane.showMessageDialog(null, fileManager.getOutputFile().getName() + " doesn't have the correct extension!", "Error", JOptionPane.ERROR_MESSAGE);
+					fileManager.setOutputFile(null);
+				}// If file has been chosen
+				else if(response == JFileChooser.APPROVE_OPTION) {
 					// Set the text field content to the path of the output file
 					fieldOutputFile.setText(fileManager.getOutputFile().toString());
 					// Message Dialog to notify the user that everything went good
 					JOptionPane.showMessageDialog(null, fileManager.getOutputFile().getName() + " has been selected successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
 				}
-			}
+			}	
 		});
 	}
 }
