@@ -31,7 +31,7 @@ public class FileManager {
 	/**
 	 * Sets the extension of output file
 	 * 
-	 * @param outputExtension the outputExtension to set
+	 * @param outputExtension - the outputExtension to set
 	 */
 	public void setOutputExtension(String outputExtension) {
 		FileManager.outputExtension = outputExtension;
@@ -69,7 +69,7 @@ public class FileManager {
 	/**
 	 * Changes the file that stores JSON Schema
 	 * 
-	 * @param inputFile This file's new object to store
+	 * @param inputFile - This file's new object to store
 	 */
 	public void setInputFile(File inputFile) {
 		FileManager.inputFile = inputFile;
@@ -78,7 +78,7 @@ public class FileManager {
 	/**
 	 * Changes the file that stores generated JSON Schema Documentation
 	 * 
-	 * @param outputFile This file's new object to store
+	 * @param outputFile - This file's new object to store
 	 */
 	public void setOutputFile(File outputFile) {
 		FileManager.outputFile = outputFile;
