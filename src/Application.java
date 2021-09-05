@@ -212,7 +212,7 @@ public class Application {
 				// Declare and initialize a JFileChooser to select a file
 				JFileChooser fileChooser = new JFileChooser();
 				// Filter for files to show only JSON files
-				FileNameExtensionFilter filter = new FileNameExtensionFilter("TXT Files", "txt");
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("Output Files", "txt", "json", "html");
 				// Set the filter for JFileChooser
 				fileChooser.setFileFilter(filter);
 				// Disable "all files" section in dialog box when selecting a file
@@ -257,7 +257,13 @@ public class Application {
 				if(fileManager.getOutputFile() == null || fileManager.getInputFile() == null) {
 					JOptionPane.showMessageDialog(null, "Please select required files!", "Error", JOptionPane.ERROR_MESSAGE);
 					return;
-				} // If file already exists, ask to overwrite it
+				}
+				// If output and input file are the same
+				else if(fileManager.getInputFile().toString().equals(fileManager.getOutputFile().toString())) {
+					JOptionPane.showMessageDialog(null, "You use the same file for output and input. Can't proceed!", "Error", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				// If file already exists, ask to overwrite it
 				else if(fileManager.getOutputFile().exists()) {
 					int input = JOptionPane.showConfirmDialog(null, "The file already exists. Overwrite it?", "File exists", JOptionPane.YES_NO_OPTION);
 					
@@ -274,6 +280,8 @@ public class Application {
 						return;
 					// If user clicked no then stop execution of this function
 					case JOptionPane.NO_OPTION:
+						return;
+					case JOptionPane.CLOSED_OPTION:
 						return;
 					}
 				}
@@ -296,8 +304,6 @@ public class Application {
 				JComboBox<?> oBox = (JComboBox<?>)e.getSource();
 				fileManager.setOutputExtension((String)oBox.getSelectedItem());
 			}
-			
-			
 		});
 	}
 }
