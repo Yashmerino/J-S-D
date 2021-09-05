@@ -15,10 +15,37 @@ public class FileManager {
 	static private File outputFile;
 
 	/**
+	 * String to store output file's extension
+	 */
+	static private String outputExtension;
+	
+	/**
+	 * Gets the extension of output file
+	 * 
+	 * @return the outputExtension
+	 */
+	public String getOutputExtension() {
+		return outputExtension;
+	}
+
+	/**
+	 * Sets the extension of output file
+	 * 
+	 * @param outputExtension the outputExtension to set
+	 */
+	public void setOutputExtension(String outputExtension) {
+		FileManager.outputExtension = outputExtension;
+	}
+
+	/**
 	 * Constructor of the class
 	 */
 	FileManager() {
-
+		// By default the extension will be .txt
+		outputExtension = ".txt";
+		// Set files to null
+		outputFile = null;
+		inputFile = null;
 	}
 
 	/**
