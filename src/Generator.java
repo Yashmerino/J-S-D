@@ -64,7 +64,8 @@ public class Generator {
 			// Get documentation about properties and definitions
 			getDocumentation(properties);
 			getDocumentation(definitions);
-		} catch (JSONException ex) {
+		} 
+		catch (JSONException ex) {
 			System.out.println("Some key not found");
 			ex.printStackTrace();
 		}
@@ -105,7 +106,8 @@ public class Generator {
 					documentation.put(currentObjectName, " Title: " + currentObject.getString("title") + ",\n "
 							+ " Description: " + currentObject.getString("description"));
 				}
-			} catch (JSONException ex) {
+			} 
+			catch (JSONException ex) {
 				System.out.println("Some key not found");
 				ex.printStackTrace();
 			}
@@ -175,7 +177,7 @@ public class Generator {
 		writer.write("\"Generated data\": {\n");
 		
 		for(Map.Entry<String, String> element : documentation.entrySet()) {
-			writer.write("\"" + element.getKey() + "\":{ \n " + element.getValue() + "\n");
+			writer.write("\"" + element.getKey() + "\": { \n " + element.getValue() + "\n");
 		}
 		
 		writer.write("}");
