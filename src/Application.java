@@ -3,6 +3,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -171,6 +172,8 @@ public class Application {
 					fileManager.setInputFile(new File(fileChooser.getSelectedFile().getAbsolutePath()));
 				}
 				catch(Exception ex) {
+					// Print exception
+					ex.printStackTrace();
 					// If no file was selected then show message about this
 					JOptionPane.showMessageDialog(null, "Please select a file!", "Error", JOptionPane.ERROR_MESSAGE);
 					// Stop the execution of this function
@@ -216,6 +219,8 @@ public class Application {
 					fileManager.setOutputFile(new File(fileChooser.getSelectedFile().getAbsolutePath()));
 				}
 				catch(Exception ex) {
+					// Print exception
+					ex.printStackTrace();
 					// If no file was selected then show message about this
 					JOptionPane.showMessageDialog(null, "Please select a file!", "Error", JOptionPane.ERROR_MESSAGE);
 					// Stop the execution of this function
@@ -252,7 +257,13 @@ public class Application {
 					switch(input) {
 					// If user clicked yes then erase all contents of the file and generate documentation
 					case JOptionPane.YES_OPTION:
-						generator.Generate();
+						try {
+							generator.Generate();
+						}
+						catch(IOException ex) {
+							// Print exception
+							ex.printStackTrace();
+						}
 						return;
 					// If user clicked no then stop execution of this function
 					case JOptionPane.NO_OPTION:
@@ -260,8 +271,14 @@ public class Application {
 					}
 				}
 				
-				// If everything went good then generate documentation
-				generator.Generate();
+				try {
+					// If everything went good then generate documentation
+					generator.Generate();
+				}
+				catch(IOException ex) {
+					// Print exception
+					ex.printStackTrace();
+				}
 			}
 		});
 	}
