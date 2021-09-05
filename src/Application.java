@@ -105,17 +105,17 @@ public class Application {
 		titleLabel.setBounds(150, 25, 330, 40);
 		dialog.getContentPane().add(titleLabel);
 		
-		// Declare and initialize check box for "only required content"
-		JCheckBox requiredCheckBox = new JCheckBox("Only required content");
-		requiredCheckBox.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		requiredCheckBox.setBounds(30, 275, 180, 20);
-		dialog.getContentPane().add(requiredCheckBox);
-		
-		// Declare and initialize check box for "include examples"
-		JCheckBox includeCheckBox = new JCheckBox("Include examples");
-		includeCheckBox.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		includeCheckBox.setBounds(30, 300, 180, 20);
-		dialog.getContentPane().add(includeCheckBox);
+//		// Declare and initialize check box for "only required content"
+//		JCheckBox requiredCheckBox = new JCheckBox("Only required content");
+//		requiredCheckBox.setFont(new Font("Tahoma", Font.PLAIN, 12));
+//		requiredCheckBox.setBounds(30, 275, 180, 20);
+//		dialog.getContentPane().add(requiredCheckBox);
+//		
+//		// Declare and initialize check box for "include examples"
+//		JCheckBox includeCheckBox = new JCheckBox("Include examples");
+//		includeCheckBox.setFont(new Font("Tahoma", Font.PLAIN, 12));
+//		includeCheckBox.setBounds(30, 300, 180, 20);
+//		dialog.getContentPane().add(includeCheckBox);
 		
 		// Declare and initialize generate button
 		JButton generateButton = new JButton("Generate");
