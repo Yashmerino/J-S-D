@@ -5,9 +5,9 @@
 
 <p>To run this application: </p> 
 
-* You have to have Java installed. You can download it here:" <a href="https://www.java.com/en/">Link</a>
+* You have to have Java installed. You can download it here: <a href="https://www.java.com/en/">Link</a>
 * After that accees the <a href="https://github.com/Yashmerino/J-S-D-G/releases">Releases</a> section and download the last version of the application.
 * Right-click the zipped folder saved to your computer and choose "Extract All". Run the application and enjoy!
 
 <h1 align="center"><strong>Demonstration</strong></h1>
-<p align="center"><img src="demo.gif" height=450 width=800></p>
+<p align="center"><img src="demo.png" height=450 width=600></p>
