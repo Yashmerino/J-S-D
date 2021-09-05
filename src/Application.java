@@ -288,5 +288,16 @@ public class Application {
 				}
 			}
 		});
+		
+		// When a new extension in ComboBox has been chosen
+		selectOutputExtensionBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Store new extension in output extension String
+				JComboBox<?> oBox = (JComboBox<?>)e.getSource();
+				fileManager.setOutputExtension((String)oBox.getSelectedItem());
+			}
+			
+			
+		});
 	}
 }
