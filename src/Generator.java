@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.swing.JOptionPane;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
@@ -83,17 +84,50 @@ public class Generator {
 			// currentObject now stores the object with currentObjectName name
 			currentObject = objects.getJSONObject(currentObjectName);
 
-			// Store the documentation about current object in documentation HashMap
-			documentation.put(currentObjectName, " Title: \"" + currentObject.getString("title") + ", \n "
-					+ " Description: " + currentObject.getString("description"));
+			try {
+				currentObject.getString("description");
+				currentObject.getString("title");
+			
+				// Store the documentation about current object in documentation HashMap
+				if(fileManager.getOutputExtension() == ".txt") {
+					documentation.put(currentObjectName, " Title: " + currentObject.getString("title") + ",\n "
+							+ " Description: " + currentObject.getString("description"));
+				}
+				else if(fileManager.getOutputExtension() == ".json") {
+				
+				}
+				else {
+				
+				}
+			}
+			catch(JSONException ex) {
+				System.out.println("Some key not found");
+			}
 		}
 	}
 	
 	/**
-	 * Export generated documentation into a file
+	 * Exports generated documentation into a file
+	 * 
 	 * @throws IOException
 	 */
 	private void exportDocumentation() throws IOException {
+		if(fileManager.getOutputExtension() == ".txt") {
+			exportDocumentationTXT();
+		}
+		else if(fileManager.getOutputExtension() == ".json") {
+			
+		}
+		else {
+			
+		}
+	}
+	
+	/**
+	 * Export generated documentation into a .txt file
+	 * @throws IOException
+	 */
+	private void exportDocumentationTXT() throws IOException {
 		// Create a BufferedWriter to write documentation into a file
 		BufferedWriter writer = null;
 		
