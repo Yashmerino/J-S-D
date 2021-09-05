@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -139,6 +140,12 @@ public class Application {
 		browseOutputButton.setBounds(460, 220, 140, 30);
 		browseOutputButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		dialog.getContentPane().add(browseOutputButton);
+		
+		// Declare and initialize combo box to select output extension file
+		JComboBox<?> selectOutputExtensionBox = new JComboBox<>(new String[] {".txt", ".json", ".html"});
+		selectOutputExtensionBox.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		selectOutputExtensionBox.setBounds(300, 275, 300, 20);
+		dialog.getContentPane().add(selectOutputExtensionBox);
 		
 		//----------------------------------------
 		
