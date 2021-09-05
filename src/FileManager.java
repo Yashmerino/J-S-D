@@ -20,6 +20,17 @@ public class FileManager {
 	static private String outputExtension;
 	
 	/**
+	 * Constructor of the class
+	 */
+	FileManager() {
+		// By default the extension will be .txt
+		outputExtension = ".txt";
+		// Set files to null
+		outputFile = null;
+		inputFile = null;
+	}
+	
+	/**
 	 * Gets the extension of output file
 	 * 
 	 * @return the outputExtension
@@ -35,17 +46,6 @@ public class FileManager {
 	 */
 	public void setOutputExtension(String outputExtension) {
 		FileManager.outputExtension = outputExtension;
-	}
-
-	/**
-	 * Constructor of the class
-	 */
-	FileManager() {
-		// By default the extension will be .txt
-		outputExtension = ".txt";
-		// Set files to null
-		outputFile = null;
-		inputFile = null;
 	}
 
 	/**
